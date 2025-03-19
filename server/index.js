@@ -3,13 +3,14 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const LoginModel = require("./models/Login");
 const RequestModel = require("./models/Request");
+const ProfileModel = require("./models/Profile");
 
 const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173", // specify your frontend's URL
-    credentials: true, // allow cookies/credentials
+    origin: "http://localhost:5173",
+    credentials: true,
   })
 );
 
@@ -55,15 +56,6 @@ app.post("/overtime-request", async (req, res) => {
   }
 });
 
-// app.get("/requests", async (req, res) => {
-//   try {
-//     const employees = await RequestModel.find();
-//     res.json(employees);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-
 app.get("/requests", async (req, res) => {
   const email = req.query.email;
 
@@ -81,8 +73,28 @@ app.get("/requests", async (req, res) => {
   }
 });
 
+app.get("/get-profile", async (req, res) => {
+  const email = req.query.email;
 
-// 🔹 CHANGE PASSWORD ENDPOINT
+  if (!email) {
+    console.error("Missing email in request!");
+    return res.status(400).json({ message: "Email is required!" });
+  }
+
+  try {
+    const profile = await ProfileModel.findOne({ email });
+
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found!" });
+    }
+
+    res.json(profile); // Send the matched profile to the frontend
+  } catch (err) {
+    console.error("Error fetching profile:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 app.post("/change-password", async (req, res) => {
   const { oldPassword, newPassword, confirmPassword, email } = req.body; // Email sent from frontend
 

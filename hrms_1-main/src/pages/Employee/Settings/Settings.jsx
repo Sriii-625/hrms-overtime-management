@@ -1,17 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import axios from 'axios';
 import "./Settings.css";
 
 const Settings = () => {
+  const [profileData, setProfileData] = useState({});
   const [activeTab, setActiveTab] = useState("profile");
-  const [profileData, setProfileData] = useState({
-    firstName: "Alice",
-    lastName: "Jones",
-    email: "alice.jones@example.com",
-    phone: "+1 234 567 8900",
-    department: "Engineering",
-    position: "Senior Developer"
-  });
+  const email = localStorage.getItem("email");
+
+  useEffect(() => {
+    if (!email) {
+      console.error("No email found in localStorage! Cannot fetch profile.");
+      return;
+    }
+
+    axios
+      .get(`http://localhost:3001/get-profile?email=${email}`)
+      .then(response => {
+        console.log("Fetched Profile Data:", response.data);
+        setProfileData(response.data);
+      })
+      .catch(err => console.error("Error Fetching Profile Data:", err));
+  }, [email]);
 
   const [notifications, setNotifications] = useState({
     emailNotifications: true,
