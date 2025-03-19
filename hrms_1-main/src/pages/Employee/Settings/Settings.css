@@ -1,0 +1,226 @@
+.settings-container {
+  padding: 20px;
+  max-width: 100%;
+}
+
+.settings-container h1 {
+  color: var(--primary-violet);
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+.settings-content {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 30px;
+}
+
+/* Tabs Styling */
+.settings-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tab-btn {
+  padding: 12px 20px;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--secondary-violet);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+  background: var(--accent-lavender);
+}
+
+.tab-btn.active {
+  background: var(--primary-violet);
+  color: white;
+}
+
+/* Settings Panel */
+.settings-panel {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--accent-lavender);
+}
+
+.settings-panel h2 {
+  color: var(--primary-violet);
+  margin-bottom: 25px;
+  font-size: 1.2rem;
+}
+
+/* Form Styling */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--secondary-violet);
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--accent-lavender);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-group input:disabled {
+  background: #f8f9fa;
+  cursor: not-allowed;
+}
+
+.save-btn {
+  background: var(--primary-violet);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.save-btn:hover {
+  background: var(--secondary-violet);
+}
+
+/* Notification Settings */
+.notification-options {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.notification-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid var(--accent-lavender);
+}
+
+.notification-option h3 {
+  color: var(--secondary-violet);
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.notification-option p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Toggle Switch */
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary-violet);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* Security Settings */
+.security-settings .form-group {
+  max-width: 400px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .settings-content {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-tabs {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+
+  .tab-btn {
+    white-space: nowrap;
+  }
+
+  .settings-panel {
+    padding: 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .notification-option {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings-container {
+    padding: 10px;
+  }
+
+  .settings-panel {
+    padding: 15px;
+  }
+}

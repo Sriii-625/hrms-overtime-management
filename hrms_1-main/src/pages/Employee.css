@@ -1,0 +1,16 @@
+.employee-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.employee-content {
+  display: flex;
+  flex: 1;
+}
+
+.employee-main {
+  flex: 1;
+  padding: 20px;
+  background-color: var(--bg-primary);
+}

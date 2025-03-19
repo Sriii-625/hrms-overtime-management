@@ -1,0 +1,148 @@
+.policies-container {
+  padding: 20px;
+  max-width: 100%;
+}
+
+.policies-container h1 {
+  color: var(--primary-violet);
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+.policies-content {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 30px;
+  min-height: calc(100vh - 200px);
+}
+
+/* Policies List Styling */
+.policies-list {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--accent-lavender);
+  height: fit-content;
+}
+
+.policy-category {
+  margin-bottom: 25px;
+}
+
+.policy-category h2 {
+  color: var(--secondary-violet);
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent-lavender);
+}
+
+.policy-card {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.policy-card:hover {
+  background: #fff;
+  border-color: var(--accent-lavender);
+}
+
+.policy-card.active {
+  background: #fff;
+  border-color: var(--primary-violet);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.policy-card h3 {
+  color: var(--primary-violet);
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.last-updated {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+/* Policy Details Styling */
+.policy-details {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--accent-lavender);
+}
+
+.policy-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.policy-header h2 {
+  color: var(--primary-violet);
+  font-size: 1.5rem;
+}
+
+.category-badge {
+  background: var(--accent-lavender);
+  color: var(--primary-violet);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.policy-content {
+  margin-top: 20px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.policy-content p {
+  margin-bottom: 10px;
+  white-space: pre-line;
+}
+
+.no-selection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #666;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .policies-content {
+    grid-template-columns: 250px 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .policies-content {
+    grid-template-columns: 1fr;
+  }
+
+  .policies-list {
+    height: auto;
+  }
+
+  .policy-details {
+    padding: 20px;
+  }
+
+  .policy-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

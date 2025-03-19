@@ -1,0 +1,22 @@
+:root {
+    --primary-violet: #6A1B9A;
+    --secondary-violet: #9C27B0;
+    --accent-lavender: #E1BEE7;
+    --dark-bg: #2C3E50;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+a{
+    text-decoration: none;
+}
+
+img{
+    cursor: pointer;
+}
+

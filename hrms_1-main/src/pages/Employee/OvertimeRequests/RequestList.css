@@ -1,0 +1,72 @@
+.requests-list {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--accent-lavender);
+}
+
+.requests-list h2 {
+  color: var(--primary-violet);
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.requests-table {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+th {
+  background-color: var(--accent-lavender);
+  color: var(--primary-violet);
+  text-align: left;
+  padding: 12px;
+  font-weight: 500;
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Status badges */
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.status.pending {
+  background-color: #ffd700;
+  color: #856404;
+}
+
+.status.approved {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status.rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+@media (max-width: 768px) {
+  .requests-table {
+    margin: 0 -20px;
+  }
+  
+  table {
+    font-size: 14px;
+  }
+  
+  th, td {
+    padding: 10px;
+  }
+}

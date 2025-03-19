@@ -1,0 +1,57 @@
+.settings-container {
+    padding: 20px;
+}
+
+/* Title */
+.settings-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-violet);
+    margin-bottom: 20px;
+}
+
+/* Settings Form */
+.settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 400px;
+}
+
+.settings-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-group label {
+    font-size: 14px;
+    color: var(--secondary-violet);
+    margin-bottom: 5px;
+}
+
+.settings-group input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.settings-group input[type="checkbox"] {
+    width: auto;
+    margin-top: 5px;
+}
+
+.save-btn {
+    background-color: var(--primary-violet);
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    width: 150px;
+    align-self: center;
+}
+
+.save-btn:hover {
+    background-color: var(--secondary-violet);
+}
