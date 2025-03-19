@@ -25,6 +25,7 @@ const handleLogin = async (e) => {
 
       if (data.message === "Success") {
           alert("Login Successful!");
+          localStorage.setItem("email", response.data.email); 
 
           // Store role in localStorage
           localStorage.setItem("userRole", data.role);

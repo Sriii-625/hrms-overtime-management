@@ -1,0 +1,56 @@
+[
+    {
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "john.doe@example.com",
+        "phone": "+1 123 456 7890",
+        "department": "Management",
+        "position": "CTO",
+        "role": "admin"
+    },
+    {
+        "firstName": "Jane",
+        "lastName": "Smith",
+        "email": "jane.smith@example.com",
+        "phone": "+1 987 654 3210",
+        "department": "Human Resources",
+        "position": "HR Manager",
+        "role": "hr"
+    },
+    {
+        "firstName": "Alice",
+        "lastName": "Jones",
+        "email": "alice.jones@example.com",
+        "phone": "+1 234 567 8900",
+        "department": "Engineering",
+        "position": "Senior Developer",
+        "role": "employee"
+    },
+    {
+        "firstName": "Bob",
+        "lastName": "Martin",
+        "email": "bob.martin@example.com",
+        "phone": "+1 345 678 9012",
+        "department": "IT",
+        "position": "System Administrator",
+        "role": "admin"
+    },
+    {
+        "firstName": "Charlie",
+        "lastName": "Brown",
+        "email": "charlie.brown@example.com",
+        "phone": "+1 456 789 0123",
+        "department": "Human Resources",
+        "position": "Recruitment Specialist",
+        "role": "hr"
+    },
+    {
+        "firstName": "Ceaser",
+        "lastName": "Zucker",
+        "email": "ceaser.zucker@example.com",
+        "phone": "+1 567 890 1234",
+        "department": "Engineering",
+        "position": "Software Engineer",
+        "role": "employee"
+    }
+]

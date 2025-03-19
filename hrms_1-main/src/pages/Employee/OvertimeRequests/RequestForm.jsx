@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "./RequestForm.css";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const RequestForm = ({ onSubmit, onCancel, initialValues = {} }) => {
   const [formData, setFormData] = React.useState({
@@ -8,10 +10,36 @@ const RequestForm = ({ onSubmit, onCancel, initialValues = {} }) => {
     endTime: initialValues.endTime || "",
     reason: initialValues.reason || ""
   });
+  const [error, setError] = useState("");
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(formData);
+
+    const { date, startTime, endTime, reason } = formData;
+
+    if (!date || !startTime || !endTime || !reason) {
+      setError("Please fill in ALL fields.");
+      return;
+    }
+
+    axios.post('http://localhost:3001/overtime-request', { date, startTime, endTime, reason }, { withCredentials: true })
+        .then(result => {
+            console.log("Overtime Request Form Response:", result.data);
+            if (result.data) {
+                navigate('/employee/overtime-requests');
+            } else {
+                setError(result.data);  // Display error messages from the server
+            }
+        })
+        .catch(err => {
+            console.error("Form Submission Error:", err);
+            setError("An error occurred. Please try again later.");
+        });
+
+        console.log("RequestForm Component Rendered!");
+
   };
 
   return (

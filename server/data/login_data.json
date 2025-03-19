@@ -1,0 +1,32 @@
+[
+    {
+        "email": "john.doe@example.com",
+        "password": "password123",
+        "role": "admin"
+    },
+    {
+        "email": "jane.smith@example.com",
+        "password": "securePass456",
+        "role": "hr"
+    },
+    {
+        "email": "alice.jones@example.com",
+        "password": "alicePassword789",
+        "role": "employee"
+    },
+    {
+        "email": "bob.martin@example.com",
+        "password": "bobSecure987",
+        "role": "admin"
+    },
+    {
+        "email": "charlie.brown@example.com",
+        "password": "charlieSecret654",
+        "role": "hr"
+    },
+    {
+        "email": "ceaser.zucker@example.com",
+        "password": "ceaserSeizer567",
+        "role": "employee"
+    }
+]

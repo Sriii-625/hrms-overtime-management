@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import "./Settings.css";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState("profile");
   const [profileData, setProfileData] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@company.com",
+    firstName: "Alice",
+    lastName: "Jones",
+    email: "alice.jones@example.com",
     phone: "+1 234 567 8900",
     department: "Engineering",
     position: "Senior Developer"
@@ -39,17 +40,39 @@ const Settings = () => {
     }));
   };
 
-  const handlePasswordChange = (e) => {
-    e.preventDefault();
-    // Handle password change logic
-    if (password.new !== password.confirm) {
-      alert("New passwords don't match!");
+  // const handlePasswordChange = (e) => {
+  //   e.preventDefault();
+  //   // Handle password change logic
+  //   if (password.new !== password.confirm) {
+  //     alert("New passwords don't match!");
+  //     return;
+  //   }
+  //   alert("Password updated successfully!");
+  //   setPassword({ current: "", new: "", confirm: "" });
+  // };
+
+  const handlePasswordChange = async (oldPassword, newPassword, confirm) => {
+    const email = localStorage.getItem("email");
+
+    if (!email) {
+      console.error("User not logged in");
       return;
     }
-    alert("Password updated successfully!");
-    setPassword({ current: "", new: "", confirm: "" });
-  };
 
+    try {
+          const response = await axios.post("http://localhost:3001/change-password", {
+              oldPassword,
+              newPassword,
+              confirm,
+              email,
+          });
+  
+          console.log(response.data.message);
+      } catch (error) {
+          console.error("Error:", error.response?.data?.message || error.message);
+      }
+  };
+  
   return (
     <div className="settings-container">
       <h1>Settings</h1>
