@@ -47,7 +47,6 @@ const Settings = () => {
   });
   
   const handlePasswordChange = async (e) => {
-    e.preventDefault(); // Prevent page reload
   
     const email = localStorage.getItem("email");
   
