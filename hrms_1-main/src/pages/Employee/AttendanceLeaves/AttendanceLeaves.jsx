@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./AttendanceLeaves.css";
 
 const AttendanceLeaves = () => {
-  // Sample attendance data
   const [attendanceRecords] = useState([
     { 
       date: "2024-03-20", 
@@ -31,40 +31,58 @@ const AttendanceLeaves = () => {
     casual: 5
   });
 
-  const [leaveHistory] = useState([
-    {
-      id: 1,
-      type: "Annual",
-      startDate: "2024-03-18",
-      endDate: "2024-03-18",
-      days: 1,
-      reason: "Personal work",
-      status: "Approved"
-    },
-    {
-      id: 2,
-      type: "Sick",
-      startDate: "2024-02-15",
-      endDate: "2024-02-16",
-      days: 2,
-      reason: "Fever",
-      status: "Approved"
+  const [showForm, setShowForm] = useState(false);
+
+  const [leaveHistory, setLeaveHistory] = useState([]);
+  const email = localStorage.getItem("email"); // Retrieve logged-in user's email
+
+  useEffect(() => {
+    if (!email) {
+      console.error("No email found in localStorage! Cannot fetch requests.");
+      return;
     }
-  ]);
 
-  const [showLeaveForm, setShowLeaveForm] = useState(false);
-  const [newLeave, setNewLeave] = useState({
-    type: "Annual",
-    startDate: "",
-    endDate: "",
-    reason: ""
-  });
+    axios.get(`http://localhost:3001/leave?email=${email}`)
+      .then(response => {
+        console.log("Fetched Data:", response.data);
+        setLeaveHistory(response.data);
+      })
+      .catch(err => console.error("Error Fetching Data:", err));
+  }, [email]);
 
+  const [newLeave, setNewLeave] = useState([]);
   const handleLeaveSubmit = (e) => {
     e.preventDefault();
-    // Add leave request logic here
-    setShowLeaveForm(false);
-  };
+  
+    if (!email) {
+      console.error("No email found! Cannot submit request.");
+      return;
+    }
+  
+    const { type, startDate, endDate, reason } = newLeave; // Extract values properly
+  
+    if (!type || !startDate || !endDate || !reason) {
+      console.error("All fields are required!");
+      return;
+    }
+  
+    const request = {
+      email, // Ensure email is sent with request
+      type,
+      startDate,
+      endDate,
+      reason,
+    };
+  
+    axios.post("http://localhost:3001/leave-request", request)
+      .then(response => {
+        console.log("New Request Added:", response.data);
+        setNewLeave([response.data, newLeave]); // Fix incorrect state update
+        window.alert("Success!");
+        setShowForm(false);
+      })
+      .catch(err => console.error("Error Submitting Request:", err));
+  }; 
 
   return (
     <div className="attendance-leaves-container">
@@ -128,14 +146,14 @@ const AttendanceLeaves = () => {
           <h2>Leave Management</h2>
           <button 
             className="new-leave-btn"
-            onClick={() => setShowLeaveForm(!showLeaveForm)}
+            onClick={() => setShowForm(!showForm)}
           >
             Request Leave
           </button>
         </div>
 
         {/* Leave Request Form */}
-        {showLeaveForm && (
+        {showForm && (
           <div className="leave-form">
             <h3>New Leave Request</h3>
             <form onSubmit={handleLeaveSubmit}>
@@ -181,7 +199,7 @@ const AttendanceLeaves = () => {
                 <button 
                   type="button" 
                   className="cancel-btn"
-                  onClick={() => setShowLeaveForm(false)}
+                  onClick={() => setShowForm(false)}
                 >
                   Cancel
                 </button>
@@ -212,7 +230,7 @@ const AttendanceLeaves = () => {
                   <td>{leave.days}</td>
                   <td>{leave.reason}</td>
                   <td>
-                    <span className={`status ${leave.status.toLowerCase()}`}>
+                    <span className={`status ${leave.status}`}>
                       {leave.status}
                     </span>
                   </td>

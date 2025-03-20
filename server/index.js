@@ -4,6 +4,7 @@ const cors = require("cors");
 const LoginModel = require("./models/Login");
 const RequestModel = require("./models/Request");
 const ProfileModel = require("./models/Profile");
+const LeaveModel = require("./models/Leave");
 
 const app = express();
 app.use(express.json());
@@ -120,6 +121,35 @@ app.post("/change-password", async (req, res) => {
   } catch (error) {
     console.error("Error changing password:", error);
     res.status(500).json({ message: "Server error", error });
+  }
+});
+
+app.post("/leave-request", async (req, res) => {
+  try {
+    console.log("Incoming Data:", req.body);
+    const leave = await LeaveModel.create(req.body);
+    console.log("Request Saved:", leave);
+    res.json(leave);
+  } catch (err) {
+    console.error("Error Saving Request:", err);
+    res.status(500).json(err);
+  }
+});
+
+app.get("/leave", async (req, res) => {
+  const email = req.query.email;
+
+  if (!email) {
+    console.error("Missing email in request!");
+    return res.status(400).json({ message: "Email is required!" });
+  }
+
+  try {
+    const requests = await LeaveModel.find({ email }); // Fetch only requests for the logged-in user
+    res.json(requests);
+  } catch (err) {
+    console.error("Error fetching requests:", err);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
