@@ -96,6 +96,31 @@ app.get("/get-profile", async (req, res) => {
   }
 });
 
+app.put("/update-profile", async (req, res) => {
+  const { _id, firstName, lastName, phone, department, position } = req.body;
+
+  if (!_id) {
+    return res.status(400).json({ success: false, message: "User ID is required" });
+  }
+
+  try {
+    const updatedUser = await ProfileModel.findByIdAndUpdate(
+      _id, 
+      { firstName, lastName, phone, department, position },
+      { new: true } // Return updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.json({ success: true, message: "Profile updated successfully!", user: updatedUser });
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+
 app.post("/change-password", async (req, res) => {
   const { oldPassword, newPassword, confirmPassword, email } = req.body; // Email sent from frontend
 

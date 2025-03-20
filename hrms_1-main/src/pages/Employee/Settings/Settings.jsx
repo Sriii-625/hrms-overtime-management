@@ -36,29 +36,39 @@ const Settings = () => {
     confirm: ""
   });
 
-  const handleProfileUpdate = (e) => {
-    e.preventDefault();
-    // Handle profile update logic
-    alert("Profile updated successfully!");
-  };
-
-  const handleNotificationUpdate = (setting) => {
-    setNotifications(prev => ({
-      ...prev,
-      [setting]: !prev[setting]
-    }));
-  };
-
-  // const handlePasswordChange = (e) => {
+  // const handleProfileUpdate = async (e) => {
   //   e.preventDefault();
-  //   // Handle password change logic
-  //   if (password.new !== password.confirm) {
-  //     alert("New passwords don't match!");
+  //   console.log("Updating Profile for ID:", profileData._id);
+
+  //   if (!profileData._id) {
+  //     console.error("User ID is missing. Cannot update profile.");
   //     return;
   //   }
-  //   alert("Password updated successfully!");
-  //   setPassword({ current: "", new: "", confirm: "" });
+  
+  //   try {
+  //     const response = await axios.put(`http://localhost:3001/update-profile/${profileData._id}`, profileData);
+      
+  //     console.log("Response:", response.data); // Debugging
+  //     if (response.data.success) {
+  //       console.log("Profile updated successfully!");
+  //     } else {
+  //       console.error("Update failed:", response.data.message || "Unknown error");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating profile:", error.response?.data?.message || error.message);
+  //   }
   // };
+
+  const handleProfileUpdate = async () => {
+    try {
+      const res = await axios.put("http://localhost:3001/update-profile", profileData);
+      alert(res.data.message); // Show success message
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      alert("Failed to update profile");
+    }
+  };
+  
 
   const handlePasswordChange = async (oldPassword, newPassword, confirm) => {
     const email = localStorage.getItem("email");
