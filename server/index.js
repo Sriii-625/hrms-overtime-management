@@ -121,11 +121,19 @@ app.put("/update-profile", async (req, res) => {
   }
 });
 
-app.post("/change-password", async (req, res) => {
-  const { oldPassword, newPassword, confirmPassword, email } = req.body; // Email sent from frontend
-
+app.put("/change-password", async (req, res) => {
   try {
+    const { oldPassword, newPassword, confirmPassword, email } = req.body;
+    
+    console.log("Received request body:", req.body);
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required!" });
+    }
+
     const user = await LoginModel.findOne({ email });
+
+    console.log("User found:", user);
 
     if (!user) {
       return res.status(404).json({ message: "User not found!" });

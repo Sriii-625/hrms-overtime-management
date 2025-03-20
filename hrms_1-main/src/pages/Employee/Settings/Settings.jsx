@@ -30,35 +30,6 @@ const Settings = () => {
     payrollAlerts: true
   });
 
-  const [password, setPassword] = useState({
-    current: "",
-    new: "",
-    confirm: ""
-  });
-
-  // const handleProfileUpdate = async (e) => {
-  //   e.preventDefault();
-  //   console.log("Updating Profile for ID:", profileData._id);
-
-  //   if (!profileData._id) {
-  //     console.error("User ID is missing. Cannot update profile.");
-  //     return;
-  //   }
-  
-  //   try {
-  //     const response = await axios.put(`http://localhost:3001/update-profile/${profileData._id}`, profileData);
-      
-  //     console.log("Response:", response.data); // Debugging
-  //     if (response.data.success) {
-  //       console.log("Profile updated successfully!");
-  //     } else {
-  //       console.error("Update failed:", response.data.message || "Unknown error");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error updating profile:", error.response?.data?.message || error.message);
-  //   }
-  // };
-
   const handleProfileUpdate = async () => {
     try {
       const res = await axios.put("http://localhost:3001/update-profile", profileData);
@@ -69,28 +40,35 @@ const Settings = () => {
     }
   };
   
-
-  const handlePasswordChange = async (oldPassword, newPassword, confirm) => {
+  const [password, setPassword] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: ""
+  });
+  
+  const handlePasswordChange = async (e) => {
+    e.preventDefault(); // Prevent page reload
+  
     const email = localStorage.getItem("email");
-
+  
     if (!email) {
       console.error("User not logged in");
       return;
     }
-
-    try {
-          const response = await axios.post("http://localhost:3001/change-password", {
-              oldPassword,
-              newPassword,
-              confirm,
-              email,
-          });
   
-          console.log(response.data.message);
-      } catch (error) {
-          console.error("Error:", error.response?.data?.message || error.message);
-      }
-  };
+    try {
+      const response = await axios.put("http://localhost:3001/change-password", {
+        oldPassword: password.oldPassword,
+        newPassword: password.newPassword,
+        confirmPassword: password.confirmPassword,
+        email,
+      });
+  
+      console.log("Success:", response.data.message);
+    } catch (error) {
+      console.error("Error:", error.response?.data?.message || error.message);
+    }
+  };  
   
   return (
     <div className="settings-container">
@@ -269,7 +247,7 @@ const Settings = () => {
                   <input
                     type="password"
                     value={password.current}
-                    onChange={(e) => setPassword({...password, current: e.target.value})}
+                    onChange={(e) => setPassword({...password, oldPassword: e.target.value})}
                     required
                   />
                 </div>
@@ -278,7 +256,7 @@ const Settings = () => {
                   <input
                     type="password"
                     value={password.new}
-                    onChange={(e) => setPassword({...password, new: e.target.value})}
+                    onChange={(e) => setPassword({...password, newPassword: e.target.value})}
                     required
                   />
                 </div>
@@ -287,7 +265,7 @@ const Settings = () => {
                   <input
                     type="password"
                     value={password.confirm}
-                    onChange={(e) => setPassword({...password, confirm: e.target.value})}
+                    onChange={(e) => setPassword({...password, confirmPassword: e.target.value})}
                     required
                   />
                 </div>
